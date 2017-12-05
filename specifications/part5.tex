@@ -1,0 +1,161 @@
+\part{User Requirement Specifications}
+\section{Définition}
+Les User Requirement Specifications (URS), ou le cahier des charges des
+spécifications de l’utilisateur, à pour but de présenter les exigences du
+client ou de l’utilisateur. Il doit contenir une liste exhaustive
+(dans la mesure du possible) de ce que le logiciel sera en mesure de faire au
+terme de son développement. Dans notre cas, les exigences sont tout d’abords
+posé par nous, premiers utilisateurs. À terme, nous espérons élargir cela à
+une communauté se formant autour du programme.
+
+\section{Priorité}
+Nous avons décidé de diviser les URS en trois niveaux de priorité afin de bien
+séparer les caractéristiques que nous voulons absoluement trouver dans le
+logiciel final et les caractéristiques qui pourraient être intéressantes à
+développer dans le futur.
+\begin{itemize}
+  \item{M – Mandatory requirement. **doit être développé**
+‘Cette caractéristique doit être incluse dans le logiciel final.’}
+  \item{D – Desirable requirement. **doit être développé dans la mesure du
+  possible**
+‘Cette caractéristique devrait être incluse dans le logiciel final, sauf si
+contrainte trop importante ou manque de temps.’}
+  \item{E – Possible future enhancement. **peut être développé dans le futur
+  ou sera développé en fonction de l’avancement du projet**
+‘Cette caractéristique pourrait être incluse dans le logiciel final dans le
+futur.’}
+\end{itemize}
+
+\section{Mandatory requirement}
+  \subsection{Explication générale(1)}
+Le logiciel lockatme devra être installable sur Linux et aura pour
+fonctionalité de permettre à l’utilisateur de vérrouiller son écran puis de
+le déverrouiller par reconnaissance faciale ou, le cas échéant, par mot de
+passe. Pour se faire l’utilisateur sera invité à enregistrer des photos de
+lui dans un dossier spécifique, ces photos seront utilisé comme modèle pour la
+reconnaissance par webcam. Des tests seront effectué pour déterminer si ces
+photos sont de qualités suffisantes pour reconnaître l’utilisateur à coup sûr.
+Le paramétrage du programme se fera à travers un fichier qui correspond aux
+normes actuelles des fichiers de configuration.
+
+  \subsection{Organisation}
+  \begin{itemize}
+    \item{M.1 : Verrouillage écran}
+
+    L’utilisateur sera capable de verrouiller son écran avec une commande.
+    \\
+    \item{M.2 : Reconnaissance faciale}
+
+    Le logiciel sera capable de reconnaître le visage de l’utilisateur à
+    l’aide d’une webcam.
+    \\
+    \item{M.3 : Déverrouillage écran}
+
+    L’utilisateur sera capable de déverrouiller son écran.
+    \begin{itemize}
+      \item{M.3.1 Par reconnaissance faciale}
+      \begin{itemize}
+        \item{M.3.1.1 Prise d’information}
+
+        Le logiciel sera capable de prendre une photo toutes les trois
+        secondes à travers la webcam.
+		    Le cas échéant cf M.2.2.2
+        \end{itemize}
+      \item{M.3.2 Par saisie de mot de passe}
+
+      En cas d’échec de la reconnaissance faciale, le logiciel sera capable de
+      déverrouiller l’écran grâce au mot de passe.
+      \end{itemize}
+  \end{itemize}
+
+\section{Desirable requirement}
+  \subsection{Explication générale(2)}
+  De plus nous souhaiterions que l’utilisateur puisse personnaliser plusieurs
+  aspects du logiciel. Par exemple, il lui serait possible de choisir une image
+  lors du verrouillage de l’écran. Il pourrait également modifier la fréquence
+  de prise d’information lors du déverrouillage par reconnaissance faciale.
+  Concernant le verrouillage de l’écran, nous souhaiterions qu’il se fasse de
+  manière automatique lorsque l’utilisateur baisse le clapet, ou qu’il appuie
+  sur une touche choisie.
+  Si nous avons de le temps nous souhaiterions réaliser une interface graphique
+  pour le choix des images «modèles» et pour l’entrée du mot de passe.
+
+  \subsection{Organisation(2)}
+  \begin{itemize}
+  \item{M.1 Verrouillage écran}
+    \begin{itemize}
+    \item{D.1 Verrouillage simplifié de l’écran}
+
+    L’utilisateur devrait être capable de verrouiller son écran avec :
+      \begin{itemize}
+      \item{D.1.1 Un raccourci clavier *}
+      \item{D.1.2 La fermeture clapet *}
+      \\
+      \end{itemize}
+      \item{D.2 Personnalisation de l’écran verrouillé}
+
+      L’utilisateur devrait être capable de choisir l’aspect 	de son écran
+      verrouillé (image, texte).
+      \\
+    \end{itemize}
+    \item{M.3.1.1 Prise d’information}
+    \begin{itemize}
+      \item{D.3 Choix fréquence prise photo}
+
+      L’utilisateur devrait être capable de choisir la 	fréquence de prise de
+      photos lors du déverrouillage par reconnaissance faciale.
+      \\
+    \end{itemize}
+    \item{D.4 Interface graphique}
+
+    L’utilisateur devrait être capable de choisir ses photos et entrer son mot
+    de passe lors du déverrouillage grâce à une interface graphique.
+  \end{itemize}
+
+\section{Possible future enhancement}
+  \subsection{Explication générale(3)}
+  Le projet étant open source nous invitons les développeurs à consulter le
+  repository GitHub pour contribuer au projet et proposer de nouvelles
+  fonctionnalités.
+  L’idée du projet est que lockatme pourra être utilisé comme programme de
+  base pour développer de nouveaux moyens de déverrouillage d’écran. Nous
+  avons notamment pensé à un déverrouillage par finger-print (pour les
+  ordinateurs équipés). Ainsi l’utilisateur aurait la possibilité de choisir
+  parmis les différents moyen de déverrouillage pour sécuriser son ordinateur.
+  Une autre avancée souhaitable serait la récupération de photos des réseaux
+  sociaux (via leurs API respectives) afin que l’utilisateur n’ait pas à
+  choisir des photos manuellement.
+  Enfin pour garantir la sécurité du déverrouillage, il serait souhaitable
+  d’améliorer la reconnaissance faciale, pour faire face à de possibles
+  failles (montrer une photo de l’utilisateur à la webcam).
+  \subsection{Organisation(3)}
+  \begin{itemize}
+  \item{M.3 Déverrouillage écran}
+    \begin{itemize}
+    \item{E.1 Programme modulaire}
+      \begin{itemize}
+      \item{E.1.1 Par Finger-print}
+
+      L’utilisateur pourrait être capable déverrouiller son écran avec un
+      finger-print.
+      \\
+      \end{itemize}
+    \end{itemize}
+    \item{M.2 Reconnaissance faciale}
+    \begin{itemize}
+    \item{E.2 Récupération de photos automatique}
+
+    L’utilisateur pourrait être capable d’entrer son nom de compte et mot de
+    passe d’un réseau social qui permet au travers de son API d’utiliser les
+    photos de l’utilisateurs ainsi que les metadatas sur l’identité des
+    personnes présentes sur celles-ci.
+    \\
+    \end{itemize}
+    \item{M.3.1 Déverrouillage écran par reconnaissance faciale}
+    \begin{itemize}
+      \item{E.3 Instruction spécifique}
+
+      Le programme pourrait être capable de demander à l’utilisateur de faire
+      certaines gestuelles spécifiques du visage.
+    \end{itemize}
+  \end{itemize}
