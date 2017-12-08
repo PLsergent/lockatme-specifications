@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import os
 from pathlib import Path
 from argparse import ArgumentParser
 from subprocess import run, PIPE
@@ -7,7 +8,7 @@ from subprocess import run, PIPE
 def compile(files):
     root_dir = Path(__file__).resolve().parent
     project_dir = root_dir / 'specifications'
-    files = [str(project_dir / f) for f in files]
+    os.chdir(project_dir)
     cmd = ['pdflatex', '-jobname=specifications',
            '-output-directory={}'.format(str(root_dir))] + files
     try:
