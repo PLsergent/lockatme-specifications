@@ -1,0 +1,81 @@
+\part{Software Design Specifications}
+\section{Utilisation}
+  \subsection{Installation Qualification}
+Pour installer le logiciel lockatme, les utilisateurs auront deux options. Le
+projet sera certainement upload sur pip. Il pourra donc utiliser la commande
+suivante disponible sur toutes les distributions Linux, à condition d'avoir
+installé le package pip de python :
+\begin{lstlisting}[language=bash]
+  ~$ pip install lockatme
+\end{lstlisting}
+Sinon il pourra tout simplement cloner le projet depuis GitHub en réalisant la
+commande suivante :
+\begin{lstlisting}[language=bash]
+  ~$ git clone https://github.com/lockatme/lockatme-specifications.git
+\end{lstlisting}
+Le dossier comprendra un fichier exécutable en Python que l'utilisateur pourra
+lancer avec la ligne suivante dans son shell :
+\begin{lstlisting}[language=bash]
+  ~$ python lockatme
+\end{lstlisting}
+
+  \subsection{Explication générale}
+Une fois l'installation réalisée, comme expliqué dans la partie précédente,
+le fichier exécutable \emph{lockatme.py} sera présent dans le dossier du logiciel. Son
+exécution aura comme effet de verrouiller l'écran. Par défaut l'écran sera
+recouvert d'un filtre transparent avec un cadenas (voir figure 4). A noter que
+durant cette période de verrouillage, l'écran de l'ordinateur pourra très bien
+se mettre en veille (écran noir) selon les configurations initiales de
+l'utilisateur.
+Pour sortir du verrouillage l'utilisateur aura juste à appuyer sur une touche
+du clavier. Ensuite la reconnaissance faciale commencera immédiatement (voir
+figure 5).
+Un point rouge apparaissant et disparaissant indiquera une prise de
+photo de la part de la webcam. Si une photo prise ainsi correspond à une photo
+modèle, l'écran se déverrouillera. Au bout d'un moment (configurable dans le
+fichier \emph{config.py}), si le déverrouillage échoue l'utilisateur sera invité à
+entrer son mot de passe (voir figure 6).
+
+  \subsection{Exemple sous i3}
+    \subsubsection{Photos modèles}
+Le choix des photos modèles devra se faire de manière autonome. À aucun moment
+le logiciel invitera l'utilisateur à mettre des photos modèles dans le dossier
+prévu cet effet. De même, pour le mot de passe devra être défini dans le
+fichier \emph{password.py}. En cas d'absence de photos
+modèles le logiciel demandera un mot de passe directement. Si le mot de passe
+n'a pas été défini il suffira d'appuyer sur Entrée.
+Voici la marche à suivre :
+\begin{lstlisting}[language=bash]
+  ~$ cp path/to/image ~/lockatme/images/
+\end{lstlisting}
+À noter qu'il est possible de mettre plusieurs photos modèles, dans la mesure
+ou si l'image de la webcam correspond à l'une des photos le déverrouillage
+fonctionnera.
+\vspace{0.5cm}
+Bien évidemment une image de bonne qualité est préférable, le logiciel ne
+vérifiera pas la qualité de l'image. L'utilisateur devra donc voir à l'usage.
+
+    \subsubsection{Raccourci clavier}
+Cet exemple est réalisé à partir d'une distribution ArchLinux avec le Windows
+manager i3. La marche à suivre est donc susceptible de changer.
+\begin{lstlisting}[language=bash]
+  ~$ cd .config/i3/
+  ~/.config/i3/$ atom config
+\end{lstlisting}
+Exemple de config :
+\begin{tcolorbox}[enhanced,width=5in,center upper,
+    fontupper=\large\bfseries,drop fuzzy shadow southwest,
+    boxrule=0.4pt,sharp corners,colframe=yellow!80!black,colback=yellow!10]
+    program bindkey\\
+    bindsym mod+o exec opera\\
+    bindsym mod+g exec chromium\\
+    bindsym mod+i exec spotify\\
+    bindsym mod+p exec libreoffice\\
+    bindsym mod+Shift+f exec firefox\\
+    \emph{bindsym mod+Key+binding exec lockatme.py}
+\end{tcolorbox}
+    \subsubsection{Fermeture clapet}
+
+\section{Diagramme}
+\section{Bibliothèques utilisées}
+\section{Exemple code}
