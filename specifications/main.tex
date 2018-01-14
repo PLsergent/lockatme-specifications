@@ -1,11 +1,16 @@
-\documentclass{report}
-\usepackage[french]{babel}
+\documentclass[french]{report}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
+\usepackage{babel}
+\usepackage[autolanguage]{numprint}
+\usepackage{hyphenat}
 \usepackage{gensymb}
 \usepackage{graphicx}
-\graphicspath{ {img/} }
+\usepackage{titlesec}
+\graphicspath{{img/}}
 
+\titleformat{\chapter}[display]
+  {\normalfont\huge\bfseries}{}{0pt}{\huge}
 
 \title{Lockatme\\A screen lock with facial recognition abilites}
 \date{\today}
