@@ -1,7 +1,7 @@
 \chapter{Software Design Specifications}
 \newpage
 \section{Définition}
-Les Software Design Specifications (SDS), ou le cahier des charges de conception
+Les \emph{Software Design Specifications} (SDS), ou le cahier des charges de conception
 du logiciel, à pour but de présenter l'architecture générale du logiciel.
 La présentation se fait à deux échelles : à bas niveau avec des exemples de codes et
 l'explication des bibliothèques utilisées. Et à un plus haut niveau avec des diagrammes
@@ -12,47 +12,72 @@ Certaines recommandations vont donc être ennoncés, qu'il sera préférable de
 respecter pour le bon fonctionnement de lockatme.
 \section{Utilisation}
   \subsection{Installation Qualification}
-Pour installer le logiciel lockatme, les utilisateurs auront deux options. Le
-projet sera certainement upload sur pip. Il pourra donc utiliser la commande
+Pour installer le logiciel lockatme, l'utilisateur aura deux options. Le
+projet sera upload sur PyPI. Il pourra donc utiliser la commande
 suivante disponible sur toutes les distributions Linux, à condition d'avoir
-installé le package pip de python :
+installé le package pip :
 \begin{lstlisting}[language=bash]
   ~$ pip install lockatme
 \end{lstlisting}
-Sinon il pourra tout simplement cloner le projet depuis GitHub en réalisant la
-commande suivante :
+Sinon il pourra tout simplement cloner le projet depuis GitHub puis le compiler :
 \begin{lstlisting}[language=bash]
   ~$ git clone https://github.com/lockatme/lockatme-specifications.git
+  ~$ cd lockatme
+  ~$ make install
 \end{lstlisting}
-Le dossier comprendra un fichier exécutable en Python que l'utilisateur pourra
-lancer avec la ligne suivante dans son shell :
+Suite à l'installation de lockatme l'utilisateur pourra lancer le logiciel
+avec la commande suivante dans son shell :
 \begin{lstlisting}[language=bash]
-  ~$ python lockatme
+  ~$ lockatme
 \end{lstlisting}
 
   \subsection{Explication générale}
 Une fois l'installation réalisée, comme expliqué dans la partie précédente,
-le fichier exécutable \emph{lockatme.py} sera présent dans le dossier du logiciel. Son
+la commande \verb|lockatme| permettra d'exécuter le logiciel. Son
 exécution aura comme effet de verrouiller l'écran. Par défaut l'écran sera
-recouvert d'un filtre transparent avec un cadenas (voir figure 4). A noter que
+recouvert d'un filtre transparent avec un cadenas (voir figure~\ref{fig:lockScreen}). A noter que
 durant cette période de verrouillage, l'écran de l'ordinateur pourra très bien
 se mettre en veille (écran noir), selon les configurations initiales de
 l'utilisateur.
 Pour sortir du verrouillage l'utilisateur aura juste à appuyer sur une touche
 du clavier. Ensuite la reconnaissance faciale commencera immédiatement (voir
-figure 5).
+figure~\ref{fig:tryUnlockScreen}).
 Un point rouge apparaissant et disparaissant indiquera une prise de
 photo de la part de la webcam. Si une photo prise ainsi correspond à une photo
 modèle, l'écran se déverrouillera. Au bout d'un moment (configurable dans le
-fichier \emph{config.py}), si le déverrouillage échoue l'utilisateur sera invité à
-entrer son mot de passe (voir figure 6).
+fichier de configuration), si le déverrouillage échoue l'utilisateur sera invité à
+entrer son mot de passe (voir figure~\ref{fig:passwordScreen}).
+\newpage
+\begin{figure}[h]
+  \begin{center}
+  \includegraphics[width=0.8\linewidth]{lockScreen}
+  \caption{Ecran verrouillé}
+  \label{fig:lockScreen}
+\end{center}
+\end{figure}
+
+\begin{figure}[h]
+  \begin{center}
+  \includegraphics[width=0.8\linewidth]{tryUnlockScreen}
+  \caption{Déverrouillage écran avec reconnaissance faciale}
+  \label{fig:tryUnlockScreen}
+\end{center}
+\end{figure}
+\newpage
+
+\begin{figure}[h]
+  \begin{center}
+  \includegraphics[width=\linewidth]{passwordScreen}
+  \caption{Déverrouillage écran, demande mot de passe}
+  \label{fig:passwordScreen}
+\end{center}
+\end{figure}
 
   \subsection{Exemple sous i3}
     \subsubsection{Photos modèles}
 Le choix des photos modèles devra se faire de manière autonome. À aucun moment
 le logiciel invitera l'utilisateur à mettre des photos modèles dans le dossier
-prévu cet effet. De même, pour le mot de passe devra être défini dans le
-fichier \emph{password.py}. En cas d'absence de photos
+prévu à cet effet. De même, pour le mot de passe. En cas d'absence de photos
 modèles le logiciel demandera un mot de passe directement. Si le mot de passe
 n'a pas été défini il suffira d'appuyer sur Entrée.
 Voici la marche à suivre :
@@ -63,15 +88,16 @@ Voici la marche à suivre :
 ou si l'image de la webcam correspond à l'une des photos le déverrouillage
 fonctionnera.
 \vspace{0.5cm}
+
 Bien évidemment une image de bonne qualité est préférable, le logiciel ne
 vérifiera pas la qualité de l'image. L'utilisateur devra donc voir à l'usage.
-
+\newpage
     \subsubsection{Raccourci clavier}
 Cet exemple est réalisé à partir d'une distribution ArchLinux avec le Windows
 manager i3. La marche à suivre est donc susceptible de changer.
 \begin{lstlisting}[language=bash]
   ~$ cd .config/i3/
-  ~/.config/i3/$ atom config
+  ~/.config/i3/$ vim config
 \end{lstlisting}
 Exemple de config :
 \fbox{\begin{minipage}{20em}
@@ -90,25 +116,18 @@ Exemple de config :
 \emph{bindsym mod+Key+binding exec lockatme}
 \end{minipage}}
 
-\newpage
-
     \subsubsection{Fermeture clapet}
-Cette fonctionalité fait appel à l'Advanced Configuration and Power Interface
-(acpi), qui sert aussi pour l'implémentation système. Nous y reviendrons donc
-dans le VII.\\
 La marche à suivre est la suivante :
 \begin{lstlisting}[language=bash]
-  ~$ cd /etc/
-  /etc/$ mkdir acpi
-  /etc/$ cd acpi
-  /etc/acpi/$ mkdir events
+  ~$ sudo pacman -S acpid
+  ~$ cd /etc/acpi
   /etc/acpi/$ cd events
-  /etc/acpi/events/$ atom lid
+  /etc/acpi/events/$ vim lid
   /etc/acpi/events/$ cd ..
-  /etc/acpi/$ atom lid.sh
+  /etc/acpi/$ vim lid.sh
 \end{lstlisting}
-Dans le dossier /etc/ il faut créer un dossier au nom de acpi. Ensuite à
-l'intérieur de ce dernier créer un dossier events. Dans events il faut créer le
+Il faut tout d'abord intaller acpid. Ensuite à
+l'intérieur de /etc/acpi/events il faut créer le
 fichier \verb|lid| (voir ci dessous).\\
 \\
 \fbox{\begin{minipage}{15em}
@@ -131,8 +150,10 @@ Ainsi lorsque le clapet se fermera lockatme s'exécutera automatiquement.
 
 \section{Diagramme}
   \begin{figure}[h]
+    \begin{center}
     \includegraphics[width=0.75\linewidth]{Organisation}
     \caption{Diagramme explication du fonctionnenement général de lockatme}
+  \end{center}
   \end{figure}
 
 \newpage
@@ -147,7 +168,7 @@ identifier un visage dans une image est dit "en cascade". C'est à dire que le
 programme va de manières successives et à différentes échelles, vérifier si
 chaques parcelles de l'image ne contient pas un visage. Sans plus entrer dans
 les détails, nous avons donc pu écrire quelques lignes de code qui nous
-permettaient d'identifier les visages au sein d'une image (voir figure 8), mais aussi en direct
+permettaient d'identifier les visages au sein d'une image (voir figure~\ref{fig:face}), mais aussi en direct
 grâce à une webcam. Problème : cette option ne nous permettait pas de simplement
 d'identifier une personne spécifique dans une image. Chose essentielle pour notre
 logiciel.\\
@@ -155,11 +176,12 @@ logiciel.\\
 \begin{figure}[h]
   \includegraphics[width=0.8\linewidth]{face_open_cv}
   \caption{Reconnaissance visages avec programme bibliothèque Open\_CV}
+  \label{fig:face}
 \end{figure}
 
 \newpage
 
-Nous avons par la suite trouvé une autre bibliothèque bien plus avancé :
+Nous avons par la suite trouvé une autre bibliothèque de plus haut niveau :
 face\_recognition (https://github.com/ageitgey/face\_recognition). Avec celle-ci
 les possibilités sont diverses, nous avons donc décidé d'utiliser face\_recognition
 pour gérer la reconnaissance faciale de lockatme.
@@ -185,7 +207,7 @@ visages mémorisés (machine learning). La détection se fait grossièrement en
   \item{Comparer avec les visages connus}
   \item{Faire une prédiction sur la personne}
 \end{itemize}
-
+\vspace{0.5cm}
 La technique de reconnaissance faciale est appelé Histogram of Oriented Gradients
 (HOG). Tout d'abord les couleurs sont changés pour avoir une image en noir et blanc.
 Ensuite l'idée est de regarder chaque pixel de l'image et de faire une flèche vers
@@ -195,7 +217,7 @@ de la clareté ou de la sombreté de l'image. Mais une flèche par pixel rend
 l'analyse trop pointue, ainsi l'image du début est séparée en carré de 16x16.
 Dans chaque carré on trouve une flèche qui représente en moyenne la direction
 la plus représenté des flèches de chaque pixel en son sein. Ainsi on a une
-représentation globale et simple du visage (voir figure~\ref{fig:HOG})
+représentation globale et simple du visage (voir figure~\ref{fig:HOG} et~\ref{fig:HOG1})
 \\
 Pour reconnaître des personnes spécifiques, le logiciel ne va pas chercher à
 comparer la représentation trouvé par HOG avec toutes les autres représentation
@@ -204,17 +226,19 @@ et ainsi émettre une décision par rapport aux mesures enregistrées dans le pa
 sur d'autre image.
 \\
 \newpage
-\begin{figure}[h]\label{fig:HOG}
+\begin{figure}[h]
   \begin{center}
   \includegraphics[width=0.4\linewidth]{HOG1}
-  \caption{Exemple représentation HOG}
+  \caption{Exemple représentation HOG(1)}
+  \label{fig:HOG}
 \end{center}
 \end{figure}
 
-\begin{figure}[h]\label{fig:HOG1}
+\begin{figure}[h]
   \begin{center}
   \includegraphics[width=0.7\linewidth]{HOG}
-  \caption{Exemple représentation HOG}
+  \caption{Exemple représentation HOG(2)}
+  \label{fig:HOG1}
 \end{center}
 \end{figure}
 \newpage
@@ -223,8 +247,7 @@ Ci dessous le programme qui permet de passer en paramètre une image modèle et
 une image à reconnaître. Le programme renvoit \verb|true| si la personne sur les deux
 images est identique et \verb|false| sinon.
 \\
-\\
-  \begin{verbatim}
+  \begin{lstlisting}[language=bash]
 import face\_recognition as fr
 
 
@@ -242,7 +265,8 @@ def is_recognized(imageSet, imagePath
     results = fr.compare_faces(know_faces, unknown_face_encoding)
 
     return any(results)
-  \end{verbatim}
+\end{lstlisting}
+
 Le programme va tout simplement prendre l'image modèle et "l'encoder"(HOG) et
 la placer dans la liste des visages connus. L'autre image est également
 encodé. L'avant dernière ligne permet de comparer les deux images encodées.
@@ -251,15 +275,12 @@ encodé. L'avant dernière ligne permet de comparer les deux images encodées.
 Sur le programme suivant même principe sauf que la reconnaissance se fait en direct
 avec une Webcam. Le programme permet de dessiner un cadre rouge autour du/des
 visages et de faire apparaître leur(s) nom(s) si il reconnait un visage.
-L'encodage se fait ligne 9 et 10.\\
-\\
+L'encodage se fait ligne 9 et 10.
 \newpage
-\begin{verbatim}
+\begin{lstlisting}[language=bash]
 import facerecognition
 import cv2
-
 videocapture = cv2.VideoCapture(0)
-
 jujuimage = facerecognition.loadimagefile("juju.jpg")
 plimage = facerecognition.loadimagefile("pl.jpg")
 
@@ -272,24 +293,27 @@ while True:
      facelocations = facerecognition.facelocations(frame)
      faceencodings = facerecognition.faceencodings(frame, facelocations)
 
-     for (top, right, bottom, left), faceencoding in zip(facelocations, faceencodings):
+     for (top, right, bottom, left), faceencoding in zip(facelocations,
+       faceencodings):
           #See if the face is a match for the known face(s)
-          match = facerecognition.comparefaces([jujufaceencoding], faceencoding)
-          match1 = facerecognition.comparefaces([plfaceencoding], faceencoding)
-
+          match = facerecognition.comparefaces([jujufaceencoding],
+            faceencoding)
+          match1 = facerecognition.comparefaces([plfaceencoding],
+            faceencoding)
           name = "Unknown"
           if match[0]:
                name = "Juliette"
           if match1[0]:
               name = "PL"
-
           #Draw a box around the face
           cv2.rectangle(frame, (left, top), (right, bottom), (0, 0, 255), 2)
 
           #Draw a label with a name below the face
-          cv2.rectangle(frame, (left, bottom - 35), (right, bottom), (0, 0, 255), cv2.FILLED)
+          cv2.rectangle(frame, (left, bottom - 35), (right, bottom), (0, 0,
+            255), cv2.FILLED)
           font = cv2.FONTHERSHEYDUPLEX
-          cv2.putText(frame, name, (left + 6, bottom - 6), font, 1.0, (255, 255, 255), 1)
+          cv2.putText(frame, name, (left + 6, bottom - 6), font, 1.0, (255,
+            255, 255), 1)
 
      #Display the resulting image
      cv2.imshow('Video', frame)
@@ -297,8 +321,7 @@ while True:
      #Hit 'q' on the keyboard to quit!
      if cv2.waitKey(1) & 0xFF == ord('q'):
           break
-
 #Release handle to the webcam
 videocapture.release()
 cv2.destroyAllWindows()
-\end{verbatim}
+\end{lstlisting}

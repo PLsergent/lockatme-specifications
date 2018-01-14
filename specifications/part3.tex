@@ -1,10 +1,11 @@
-\part{Stratégie de développement}
+\chapter{Stratégie de développement}
+\newpage
 \section{Méthologie de développement}
 \subsection{Définition}
 
 Ces derniers temps, un nouveau groupe de méthodes fait son apparition dans la
 gestion de projet : on parle de méthodes agiles et Scrum fait partie de
-celles-ci (voir figure 1). Le terme "agile" définit une approche de gestion de projet qui prend
+celles-ci (voir figure~\ref{fig:scrum}). Le terme "agile" définit une approche de gestion de projet qui prend
 le contre-pied des approches traditionnelles prédictives et séquentielles de
 type cycle en V ou waterfall.
 La méthode dite « traditionnelle » favorise l’élaboration d’un plan détaillé
@@ -26,6 +27,7 @@ contenant des améliorations incrémentales).
 \begin{figure}[h]
   \includegraphics[width=\linewidth]{Scrum}
   \caption{schéma agile et scrum}
+  \label{fig:scrum}
 \end{figure}
 
 \subsection{Application dans le projet lockatme}
@@ -52,7 +54,7 @@ d’équipe.
 
 \section{Intégration continue}
 Afin de collaborer au mieux au sein de l'équipe, nous avons mis en place
-une C.I. (voir figure 2). C'est un pipeline qui consiste à executer
+une C.I. (voir figure ~\ref{fig:CI-CD}). C'est un pipeline qui consiste à executer
 les tests mis en places automatiquement après chaque changement sur une branche
 du projet.
 \vspace{0.5cm}
@@ -76,4 +78,5 @@ version.
 \begin{figure}[h]
   \includegraphics[width=\linewidth]{CI-CD}
   \caption{continious integration}
+  \label{fig:CI-CD}
 \end{figure}
