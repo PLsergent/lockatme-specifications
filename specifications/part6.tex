@@ -1,5 +1,6 @@
 \chapter{Software Design Specifications}
 \newpage
+
 \section{Définition}
 Les \emph{Software Design Specifications} (SDS), ou le cahier des charges de conception
 du logiciel, à pour but de présenter l'architecture générale du logiciel.
@@ -17,26 +18,25 @@ projet sera upload sur PyPI. Il pourra donc utiliser la commande
 suivante disponible sur toutes les distributions Linux, à condition d'avoir
 installé le package pip :
 \begin{lstlisting}[language=bash]
-  ~$ pip install lockatme
+  $ pip install lockatme
 \end{lstlisting}
 Sinon il pourra tout simplement cloner le projet depuis GitHub puis le compiler :
 \begin{lstlisting}[language=bash]
-  ~$ git clone https://github.com/lockatme/lockatme-specifications.git
-  ~$ cd lockatme
-  ~$ make install
+  $ git clone https://github.com/lockatme/lockatme-specifications.git
+  $ cd lockatme
+  $ make install
 \end{lstlisting}
 Suite à l'installation de lockatme l'utilisateur pourra lancer le logiciel
 avec la commande suivante dans son shell :
 \begin{lstlisting}[language=bash]
-  ~$ lockatme
+  $ lockatme
 \end{lstlisting}
 
-  \subsection{Explication générale}
+\subsection{Explication générale}
 Une fois l'installation réalisée, comme expliqué dans la partie précédente,
 la commande \verb|lockatme| permettra d'exécuter le logiciel. Son
 exécution aura comme effet de verrouiller l'écran. Par défaut l'écran sera
-recouvert d'un filtre transparent avec un cadenas (voir figure~\ref{fig:lockScreen}). A noter que
-durant cette période de verrouillage, l'écran de l'ordinateur pourra très bien
+recouvert d'un filtre transparent avec un cadenas (voir figure~\ref{fig:lockScreen}). A noterque durant cette période de verrouillage, l'écran de l'ordinateur pourra très bien
 se mettre en veille (écran noir), selon les configurations initiales de
 l'utilisateur.
 Pour sortir du verrouillage l'utilisateur aura juste à appuyer sur une touche
@@ -73,8 +73,8 @@ entrer son mot de passe (voir figure~\ref{fig:passwordScreen}).
 \end{center}
 \end{figure}
 
-  \subsection{Exemple sous i3}
-    \subsubsection{Photos modèles}
+\subsection{Exemple sous i3}
+\subsubsection{Photos modèles}
 Le choix des photos modèles devra se faire de manière autonome. À aucun moment
 le logiciel invitera l'utilisateur à mettre des photos modèles dans le dossier
 prévu à cet effet. De même, pour le mot de passe. En cas d'absence de photos
@@ -82,7 +82,7 @@ modèles le logiciel demandera un mot de passe directement. Si le mot de passe
 n'a pas été défini il suffira d'appuyer sur Entrée.
 Voici la marche à suivre :
 \begin{lstlisting}[language=bash]
-  ~$ cp path/to/image ~/lockatme/images/
+  $ cp path/to/image ~/lockatme/images/
 \end{lstlisting}
 À noter qu'il est possible de mettre plusieurs photos modèles, dans la mesure
 ou si l'image de la webcam correspond à l'une des photos le déverrouillage
@@ -92,13 +92,15 @@ fonctionnera.
 Bien évidemment une image de bonne qualité est préférable, le logiciel ne
 vérifiera pas la qualité de l'image. L'utilisateur devra donc voir à l'usage.
 \newpage
-    \subsubsection{Raccourci clavier}
+
+\subsubsection{Raccourci clavier}
 Cet exemple est réalisé à partir d'une distribution ArchLinux avec le Windows
 manager i3. La marche à suivre est donc susceptible de changer.
 \begin{lstlisting}[language=bash]
-  ~$ cd .config/i3/
+  $ cd .config/i3/
   ~/.config/i3/$ vim config
 \end{lstlisting}
+
 Exemple de config :
 \fbox{\begin{minipage}{20em}
   program bindkey
@@ -116,11 +118,11 @@ Exemple de config :
 \emph{bindsym mod+Key+binding exec lockatme}
 \end{minipage}}
 
-    \subsubsection{Fermeture clapet}
+\subsubsection{Fermeture clapet}
 La marche à suivre est la suivante :
 \begin{lstlisting}[language=bash]
-  ~$ sudo pacman -S acpid
-  ~$ cd /etc/acpi
+  $ sudo pacman -S acpid
+  $ cd /etc/acpi
   /etc/acpi/$ cd events
   /etc/acpi/events/$ vim lid
   /etc/acpi/events/$ cd ..
@@ -159,7 +161,7 @@ Ainsi lorsque le clapet se fermera lockatme s'exécutera automatiquement.
 \newpage
 
 \section{Bibliothèques utilisées}
-  \subsection{Contexte}
+\subsection{Contexte}
 Lorsque nous avons commencé les recherches pour ce projet, nous nous sommes
 d'abord penché sur l'utilisation de Open\_CV, un bibliothèque écrit en C/C++ qui
 propose des bindings en Python. Open\_CV utilise le machine learning pour
@@ -168,10 +170,11 @@ identifier un visage dans une image est dit "en cascade". C'est à dire que le
 programme va de manières successives et à différentes échelles, vérifier si
 chaques parcelles de l'image ne contient pas un visage. Sans plus entrer dans
 les détails, nous avons donc pu écrire quelques lignes de code qui nous
-permettaient d'identifier les visages au sein d'une image (voir figure~\ref{fig:face}), mais aussi en direct
-grâce à une webcam. Problème : cette option ne nous permettait pas de simplement
-d'identifier une personne spécifique dans une image. Chose essentielle pour notre
-logiciel.\\
+permettaient d'identifier les visages au sein d'une image (voir
+figure~\ref{fig:face}), mais aussi en direct grâce à une webcam. Problème :
+cette option ne nous permettait pas de simplement d'identifier une personne
+spécifique dans une image. Chose essentielle pour notre logiciel.
+\\
 
 \begin{figure}[h]
   \includegraphics[width=0.8\linewidth]{face_open_cv}
@@ -229,7 +232,7 @@ sur d'autre image.
 \begin{figure}[h]
   \begin{center}
   \includegraphics[width=0.4\linewidth]{HOG1}
-  \caption{Exemple représentation HOG(1)}
+  \caption{Exemple représentation HOG (1)}
   \label{fig:HOG}
 \end{center}
 \end{figure}
@@ -237,7 +240,7 @@ sur d'autre image.
 \begin{figure}[h]
   \begin{center}
   \includegraphics[width=0.7\linewidth]{HOG}
-  \caption{Exemple représentation HOG(2)}
+  \caption{Exemple représentation HOG (2)}
   \label{fig:HOG1}
 \end{center}
 \end{figure}
@@ -247,8 +250,8 @@ Ci dessous le programme qui permet de passer en paramètre une image modèle et
 une image à reconnaître. Le programme renvoit \verb|true| si la personne sur les deux
 images est identique et \verb|false| sinon.
 \\
-  \begin{lstlisting}[language=bash]
-import face\_recognition as fr
+\begin{minted}{python}
+import face_recognition as fr
 
 
 def is_recognized(imageSet, imagePath
@@ -265,9 +268,9 @@ def is_recognized(imageSet, imagePath
     results = fr.compare_faces(know_faces, unknown_face_encoding)
 
     return any(results)
-\end{lstlisting}
+\end{minted}
 
-Le programme va tout simplement prendre l'image modèle et "l'encoder"(HOG) et
+Le programme va tout simplement prendre l'image modèle et "l'encoder" (HOG) et
 la placer dans la liste des visages connus. L'autre image est également
 encodé. L'avant dernière ligne permet de comparer les deux images encodées.
 \\
@@ -277,7 +280,8 @@ avec une Webcam. Le programme permet de dessiner un cadre rouge autour du/des
 visages et de faire apparaître leur(s) nom(s) si il reconnait un visage.
 L'encodage se fait ligne 9 et 10.
 \newpage
-\begin{lstlisting}[language=bash]
+
+\begin{minted}{python}
 import facerecognition
 import cv2
 videocapture = cv2.VideoCapture(0)
@@ -324,4 +328,4 @@ while True:
 #Release handle to the webcam
 videocapture.release()
 cv2.destroyAllWindows()
-\end{lstlisting}
+\end{minted}

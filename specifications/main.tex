@@ -1,14 +1,17 @@
-\documentclass{report}
+\documentclass[french]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{babel}
+\usepackage[autolanguage]{numprint}
+\usepackage{hyphenat}
+\usepackage{gensymb}
+\usepackage{graphicx}
+\usepackage{titlesec}
+\usepackage[outputdir=..]{minted}
 \usepackage{listings}
 \newcommand\tab[1][1cm]{\hspace*{#1}}
 \usepackage[skins]{tcolorbox}
-\usepackage[french]{babel}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{gensymb}
-\usepackage{graphicx}
-\graphicspath{ {img/} }
-
+\graphicspath{{img/}}
 
 \title{Lockatme\\A screen lock with facial recognition abilites}
 \date{\today}
