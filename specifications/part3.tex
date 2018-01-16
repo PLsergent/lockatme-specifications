@@ -1,4 +1,6 @@
 \chapter{Stratégie de développement}
+\newpage
+
 \section{Méthologie de développement}
 \subsection{Définition}
 
@@ -26,6 +28,7 @@ contenant des améliorations incrémentales).
 \begin{figure}[h]\label{fig:scrum}
   \includegraphics[width=\linewidth]{Scrum}
   \caption{schéma agile et scrum}
+  \label{fig:scrum}
 \end{figure}
 
 \subsection{Application dans le projet lockatme}
@@ -52,7 +55,7 @@ d’équipe.
 
 \section{Intégration continue}
 Afin de collaborer au mieux au sein de l'équipe, nous avons mis en place
-une C.I. (voir figure~\ref{fig:ci}). C'est un pipeline qui consiste à executer
+une C.I. (voir figure ~\ref{fig:CI-CD}). C'est un pipeline qui consiste à executer
 les tests mis en places automatiquement après chaque changement sur une branche
 du projet.
 \vspace{0.5cm}
@@ -73,7 +76,8 @@ celui contenant le dernier commit. Ceci n'est pas possible à faire pour un
 projet comme le notre, qui doit être manuellement mis-à-jour à chaque nouvelle
 version.
 
-\begin{figure}[h]\label{fig:ci}
+\begin{figure}[h]
   \includegraphics[width=\linewidth]{CI-CD}
   \caption{continious integration}
+  \label{fig:CI-CD}
 \end{figure}
