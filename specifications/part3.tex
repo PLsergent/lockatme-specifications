@@ -5,7 +5,7 @@
 \subsection{Définition}
 
 Ces derniers temps, un nouveau groupe de méthodes fait son apparition dans la
-gestion de projet : on parle de méthodes agiles et Scrum fait partie de
+gestion de projet : on parle de méthodes agiles, et Scrum, fait partie de
 celles-ci (voir figure~\ref{fig:scrum}). Le terme << agile >> définit une approche de gestion
 de projet qui prend le contre-pied des approches traditionnelles prédictives et
 séquentielles de type cycle en V ou waterfall.
@@ -38,33 +38,33 @@ Pour nous, utiliser une méthodologie agile, et plus particulièrement SCRUM s'e
 traduit par une mise en place de sprint hébdomadaire. À la fin de ces derniers nous nous
 retrouvons afin de fermer les tickets résolus et d'ouvrir de nouveaux tickets pour le
 sprint d'après. De plus, nous essayons d'avoir fréquemment des \emph{stand-ups}, sortes de
-petites réunion de 15 minutes généralement faites debout (comme son nom l'indique) et qui permettent d'exposer
-d'une part les problèmes que l'on a dans l'avancé de notre travail, de se faire
+petites réunions de 15 minutes généralement faites debout (comme son nom l'indique) et qui permettent d'exposer
+d'une part les problèmes que l'on a dans l'avancée de nôtre travail, de se faire
 aider d'autre part, et d'annoncer ce que nous comptons faire le jour même.
 
-Les outils qui nous servent pour exploiter le potentiel de cette méthodologie est
-\emph{Taiga} pour le suivit et la gestion des tickets et \emph{Discord} pour la
+Les outils qui nous servent pour exploiter le potentiel de cette méthodologie sont
+\emph{Taiga} pour le suivi et la gestion des tickets et \emph{Discord} pour la
 communication par message ou vidéo.
 
 \section{Intégration continue}
 Afin de collaborer au mieux au sein de l'équipe, nous avons mis en place
 une C.I. (voir figure ~\ref{fig:CI-CD}). C'est un pipeline qui consiste à executer
-les tests mis en places automatiquement après chaque changement sur une branche
+les tests mis en place automatiquement après chaque changement sur une branche
 du projet.
 \vspace{0.5cm}
 
-Après avoir positivement passé les tests et avoir subit une phase de review
+Après avoir positivement passé les tests et avoir subi une phase de review
 pour recevoir commentaires et conseils, le code peut être intégré dans la
 branche principale avec l'assurance (relative à l’exhaustivité des tests) qu'il
 n'a pas compromis les autres parties du code.
 \vspace{0.5cm}
 
-Cette méthodologie de travail permet à l’utilisateur final de récuperer toutes
+Cette méthodologie de travail permet à l’utilisateur final de récupérer toutes
 les nouveautés introduites au moment où elles sont \emph{merged} et non à la
 sortie d’une nouvelle version. Dans certain cas, notamment avec les sites web
 par exemple, on peut même arriver à faire du Continuous Deployment, ce qui veut
 dire qu’il n’y a plus besoin de versionner les différents états du projet et
-qu’à chaque push d’un des développeur, le site disponible à l’utilisateur est
+qu’à chaque push d’un des développeurs, le site disponible à l’utilisateur est
 celui contenant le dernier commit. Ceci n'est pas possible à faire pour un
-projet comme le notre, qui doit être manuellement mis-à-jour à chaque nouvelle
+projet comme le nôtre, qui doit être manuellement mis-à-jour à chaque nouvelle
 version.

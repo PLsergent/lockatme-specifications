@@ -9,7 +9,7 @@ l'explication des bibliothèques utilisées. Et à un plus haut niveau avec des 
 de fonctionnement, des exemples d'utilisations et des captures d'écran. À noter
 que c'est dans cette section que nous traiterons des limites du logiciel. C'est
 à dire tout ce que le logiciel ne sera pas en mesure de faire automatiquement.
-Certaines recommandations vont donc être ennoncés, qu'il sera préférable de
+Certaines recommandations vont donc être ennoncées, qu'il sera préférable de
 respecter pour le bon fonctionnement de lockatme.
 \section{Utilisation}
   \subsection{Installation Qualification}
@@ -113,12 +113,12 @@ Ainsi lorsque le clapet se fermera lockatme s'exécutera automatiquement.
 \section{Bibliothèques utilisées}
 \subsection{Contexte}
 Lorsque nous avons commencé les recherches pour ce projet, nous nous sommes
-d'abord penché sur l'utilisation de Open\_CV, un bibliothèque écrit en C/C++ qui
+d'abord penché sur l'utilisation de Open\_CV, une bibliothèque écrite en C/C++ qui
 propose des bindings en Python. Open\_CV utilise le machine learning pour
 reconnaître les visages au sein d'une image. La méthode de fonctionnement pour
 identifier un visage dans une image est dit "en cascade". C'est à dire que le
 programme va de manières successives et à différentes échelles, vérifier si
-chaques parcelles de l'image ne contient pas un visage. Sans plus entrer dans
+chaque parcelle de l'image ne contient pas un visage. Sans plus entrer dans
 les détails, nous avons donc pu écrire quelques lignes de code qui nous
 permettaient d'identifier les visages au sein d'une image (voir
 figure~\ref{fig:face}), mais aussi en direct grâce à une webcam. Problème :
@@ -156,6 +156,7 @@ Face\_recognition est une bibliothèque très performante qui permet de détecte
 les visages dans une image et d'identifier les protagonistes en fonction des
 visages mémorisés (machine learning). La détection se fait grossièrement en
 4 étapes :
+\vspace{0.5cm}
 \begin{itemize}
   \item{Trouver un visage dans l'image}
   \item{Analyser les caractéristiques faciales}
@@ -164,26 +165,26 @@ visages mémorisés (machine learning). La détection se fait grossièrement en
 \end{itemize}
 \vspace{0.5cm}
 La technique de reconnaissance faciale est appelé Histogram of Oriented Gradients
-(HOG). Tout d'abord les couleurs sont changés pour avoir une image en noir et blanc.
+(HOG). Tout d'abord les couleurs sont changées pour avoir une image en niveau de gris.
 Ensuite l'idée est de regarder chaque pixel de l'image et de faire une flèche vers
 le pixel adjacent le plus sombre. Chaque pixel est ainsi remplacé par une flèche
-appelé gradient. Ce procédé permet d'avoir une représentation qui est indépendante
-de la clareté ou de la sombreté de l'image. Mais une flèche par pixel rend
+appelée gradient. Ce procédé permet d'avoir une représentation qui est indépendante
+de la clareté ou de la noirceur de l'image. Mais une flèche par pixel rend
 l'analyse trop pointue, ainsi l'image du début est séparée en carré de 16x16.
 Dans chaque carré on trouve une flèche qui représente en moyenne la direction
-la plus représenté des flèches de chaque pixel en son sein. Ainsi on a une
+la plus représentée des flèches de chaque pixel en son sein. Ainsi on a une
 représentation globale et simple du visage (voir figure~\ref{fig:HOG} et~\ref{fig:HOG1})
 \\
 Pour reconnaître des personnes spécifiques, le logiciel ne va pas chercher à
-comparer la représentation trouvé par HOG avec toutes les autres représentation
-trouvé auparavant. Il va réaliser des mesures précises sur les visages trouvés
+comparer la représentation trouvée par HOG avec toutes les autres représentation
+trouvées auparavant. Il va réaliser des mesures précises sur les visages trouvés
 et ainsi émettre une décision par rapport aux mesures enregistrées dans le passé
-sur d'autre image.
+sur d'autres images.
 \\
 \newpage
 \section{Exemple code}
 Ci dessous le programme qui permet de passer en paramètre une image modèle et
-une image à reconnaître. Le programme renvoit \verb|true| si la personne sur les deux
+une image à reconnaître. Le programme renvoie \verb|true| si la personne sur les deux
 images est identique et \verb|false| sinon.
 \\
 \begin{minted}{python}
@@ -208,7 +209,7 @@ def is_recognized(imageSet, imagePath
 
 Le programme va tout simplement prendre l'image modèle et "l'encoder" (HOG) et
 la placer dans la liste des visages connus. L'autre image est également
-encodé. L'avant dernière ligne permet de comparer les deux images encodées.
+encodée. L'avant dernière ligne permet de comparer les deux images encodées.
 \\
 \\
 Sur le programme en annexe B même principe sauf que la reconnaissance se fait en direct
