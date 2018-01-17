@@ -24,11 +24,6 @@ et unlock au travers de commandes. Un exemple de programme standard est
 \verb|xscreensaver-command -l| et d'unlock avec \verb|xscreensaver-command -d|.
 Cette solution implique d'appeler le programme en question depuis notre propre
 programme Python. Ceci est moins portable et ne laisse pas autant de liberté, mais
-est plus simple et plus rapide à implémenter.
+est plus simple et plus rapide à implémenter (voir figure~\ref{fig:dialam})
 De plus, cela offre l'avantage d'offrir d'office toutes les fonctionnalités du
 programme utilisé.
-
-\begin{figure}[h]
-  \includegraphics[width=\linewidth]{diagramme_lockatme}
-  \caption{diagramme appel programme tier}
-\end{figure}
