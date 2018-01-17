@@ -1,0 +1,116 @@
+\appendix
+\chapter{Schéma}
+\begin{figure}[h]
+  \begin{center}
+  \includegraphics[width=\linewidth]{CI-CD}
+  \caption{Continious integration}
+  \label{fig:CI-CD}
+  \end{center}
+\end{figure}
+
+\newpage
+
+\begin{figure}[h]
+  \begin{center}
+  \includegraphics[width=0.8\linewidth]{lockScreen}
+  \caption{Ecran verrouillé}
+  \label{fig:lockScreen}
+\end{center}
+\end{figure}
+
+\begin{figure}[h]
+  \begin{center}
+  \includegraphics[width=0.8\linewidth]{tryUnlockScreen}
+  \caption{Déverrouillage écran avec reconnaissance faciale}
+  \label{fig:tryUnlockScreen}
+\end{center}
+\end{figure}
+
+\begin{figure}[h]
+  \begin{center}
+  \includegraphics[width=\linewidth]{passwordScreen}
+  \caption{Déverrouillage écran, demande mot de passe}
+  \label{fig:passwordScreen}
+\end{center}
+\end{figure}
+
+\begin{figure}[h]
+  \begin{center}
+  \includegraphics[width=0.75\linewidth]{Organisation}
+  \caption{Diagramme explication du fonctionnenement général de lockatme}
+\end{center}
+\end{figure}
+
+\begin{figure}[h]
+  \begin{center}
+  \includegraphics[width=0.4\linewidth]{HOG1}
+  \caption{Exemple représentation HOG (1)}
+  \label{fig:HOG}
+\end{center}
+\end{figure}
+
+\begin{figure}[h]
+  \begin{center}
+  \includegraphics[width=0.7\linewidth]{HOG}
+  \caption{Exemple représentation HOG (2)}
+  \label{fig:HOG1}
+\end{center}
+\end{figure}
+
+\begin{figure}[h]
+  \includegraphics[width=\linewidth]{diagramme_lockatme}
+  \caption{Diagramme appel programme tiers}
+  \label{fig:dialam}
+\end{figure}
+
+
+\chapter{Code}
+\newpage
+\begin{minted}{python}
+import facerecognition
+import cv2
+videocapture = cv2.VideoCapture(0)
+jujuimage = facerecognition.loadimagefile("juju.jpg")
+plimage = facerecognition.loadimagefile("pl.jpg")
+
+jujufaceencoding = facerecognition.faceencodings(jujuimage)[0]
+plfaceencoding = facerecognition.faceencodings(plimage)[0]
+
+while True:
+     ret, frame = videocapture.read()
+
+     facelocations = facerecognition.facelocations(frame)
+     faceencodings = facerecognition.faceencodings(frame, facelocations)
+
+     for (top, right, bottom, left), faceencoding in zip(facelocations,
+       faceencodings):
+          #See if the face is a match for the known face(s)
+          match = facerecognition.comparefaces([jujufaceencoding],
+            faceencoding)
+          match1 = facerecognition.comparefaces([plfaceencoding],
+            faceencoding)
+          name = "Unknown"
+          if match[0]:
+               name = "Juliette"
+          if match1[0]:
+              name = "PL"
+          #Draw a box around the face
+          cv2.rectangle(frame, (left, top), (right, bottom), (0, 0, 255), 2)
+
+          #Draw a label with a name below the face
+          cv2.rectangle(frame, (left, bottom - 35), (right, bottom), (0, 0,
+            255), cv2.FILLED)
+          font = cv2.FONTHERSHEYDUPLEX
+          cv2.putText(frame, name, (left + 6, bottom - 6), font, 1.0, (255,
+            255, 255), 1)
+
+     #Display the resulting image
+     cv2.imshow('Video', frame)
+
+     #Hit 'q' on the keyboard to quit!
+     if cv2.waitKey(1) & 0xFF == ord('q'):
+          break
+#Release handle to the webcam
+videocapture.release()
+cv2.destroyAllWindows()
+\end{minted}

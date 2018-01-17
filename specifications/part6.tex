@@ -9,7 +9,7 @@ l'explication des bibliothèques utilisées. Et à un plus haut niveau avec des 
 de fonctionnement, des exemples d'utilisations et des captures d'écran. À noter
 que c'est dans cette section que nous traiterons des limites du logiciel. C'est
 à dire tout ce que le logiciel ne sera pas en mesure de faire automatiquement.
-Certaines recommandations vont donc être ennoncés, qu'il sera préférable de
+Certaines recommandations vont donc être ennoncées, qu'il sera préférable de
 respecter pour le bon fonctionnement de lockatme.
 \section{Utilisation}
   \subsection{Installation Qualification}
@@ -27,10 +27,7 @@ Sinon il pourra tout simplement cloner le projet depuis GitHub puis le compiler 
   $ make install
 \end{lstlisting}
 Suite à l'installation de lockatme l'utilisateur pourra lancer le logiciel
-avec la commande suivante dans son shell :
-\begin{lstlisting}[language=bash]
-  $ lockatme
-\end{lstlisting}
+avec la commande suivante dans son shell \verb|lockatme|.
 
 \subsection{Explication générale}
 Une fois l'installation réalisée, comme expliqué dans la partie précédente,
@@ -48,32 +45,8 @@ photo de la part de la webcam. Si une photo prise ainsi correspond à une photo
 modèle, l'écran se déverrouillera. Au bout d'un moment (configurable dans le
 fichier de configuration), si le déverrouillage échoue l'utilisateur sera invité à
 entrer son mot de passe (voir figure~\ref{fig:passwordScreen}).
+
 \newpage
-\begin{figure}[h]
-  \begin{center}
-  \includegraphics[width=0.8\linewidth]{lockScreen}
-  \caption{Ecran verrouillé}
-  \label{fig:lockScreen}
-\end{center}
-\end{figure}
-
-\begin{figure}[h]
-  \begin{center}
-  \includegraphics[width=0.8\linewidth]{tryUnlockScreen}
-  \caption{Déverrouillage écran avec reconnaissance faciale}
-  \label{fig:tryUnlockScreen}
-\end{center}
-\end{figure}
-\newpage
-
-\begin{figure}[h]
-  \begin{center}
-  \includegraphics[width=\linewidth]{passwordScreen}
-  \caption{Déverrouillage écran, demande mot de passe}
-  \label{fig:passwordScreen}
-\end{center}
-\end{figure}
-
 \subsection{Exemple sous i3}
 \subsubsection{Photos modèles}
 Le choix des photos modèles devra se faire de manière autonome. À aucun moment
@@ -87,12 +60,8 @@ Voici la marche à suivre :
 \end{lstlisting}
 À noter qu'il est possible de mettre plusieurs photos modèles, dans la mesure
 ou si l'image de la webcam correspond à l'une des photos le déverrouillage
-fonctionnera.
-\vspace{0.5cm}
-
-Bien évidemment une image de bonne qualité est préférable, le logiciel ne
+fonctionnera. Bien évidemment une image de bonne qualité est préférable, le logiciel ne
 vérifiera pas la qualité de l'image. L'utilisateur devra donc voir à l'usage.
-\newpage
 
 \subsubsection{Raccourci clavier}
 Cet exemple est réalisé à partir d'une distribution ArchLinux avec le Windows
@@ -104,17 +73,7 @@ manager i3. La marche à suivre est donc susceptible de changer.
 
 Exemple de config :
 \fbox{\begin{minipage}{20em}
-  program bindkey
-  \\
-  bindsym mod+o exec opera
-  \\
-  bindsym mod+g exec chromium
-  \\
-  bindsym mod+i exec spotify
-  \\
-  bindsym mod+p exec libreoffice
-  \\
-  bindsym mod+Shift+f exec firefox
+  \#program bindkey
   \\
 \emph{bindsym mod+Key+binding exec lockatme}
 \end{minipage}}
@@ -123,8 +82,7 @@ Exemple de config :
 La marche à suivre est la suivante :
 \begin{lstlisting}[language=bash]
   $ sudo pacman -S acpid
-  $ cd /etc/acpi
-  /etc/acpi/$ cd events
+  $ cd /etc/acpi/events
   /etc/acpi/events/$ vim lid
   /etc/acpi/events/$ cd ..
   /etc/acpi/$ vim lid.sh
@@ -149,27 +107,18 @@ lockatme
 \\
 \\
 Ainsi lorsque le clapet se fermera lockatme s'exécutera automatiquement.
-\newpage
-
-\section{Diagramme}
-  \begin{figure}[h]
-    \begin{center}
-    \includegraphics[width=0.75\linewidth]{Organisation}
-    \caption{Diagramme explication du fonctionnenement général de lockatme}
-  \end{center}
-  \end{figure}
 
 \newpage
 
 \section{Bibliothèques utilisées}
 \subsection{Contexte}
 Lorsque nous avons commencé les recherches pour ce projet, nous nous sommes
-d'abord penché sur l'utilisation de Open\_CV, un bibliothèque écrit en C/C++ qui
+d'abord penché sur l'utilisation de Open\_CV, une bibliothèque écrite en C/C++ qui
 propose des bindings en Python. Open\_CV utilise le machine learning pour
 reconnaître les visages au sein d'une image. La méthode de fonctionnement pour
 identifier un visage dans une image est dit "en cascade". C'est à dire que le
 programme va de manières successives et à différentes échelles, vérifier si
-chaques parcelles de l'image ne contient pas un visage. Sans plus entrer dans
+chaque parcelle de l'image ne contient pas un visage. Sans plus entrer dans
 les détails, nous avons donc pu écrire quelques lignes de code qui nous
 permettaient d'identifier les visages au sein d'une image (voir
 figure~\ref{fig:face}), mais aussi en direct grâce à une webcam. Problème :
@@ -178,9 +127,11 @@ spécifique dans une image. Chose essentielle pour notre logiciel.
 \\
 
 \begin{figure}[h]
+  \begin{center}
   \includegraphics[width=0.8\linewidth]{face_open_cv}
   \caption{Reconnaissance visages avec programme bibliothèque Open\_CV}
   \label{fig:face}
+\end{center}
 \end{figure}
 
 \newpage
@@ -205,6 +156,7 @@ Face\_recognition est une bibliothèque très performante qui permet de détecte
 les visages dans une image et d'identifier les protagonistes en fonction des
 visages mémorisés (machine learning). La détection se fait grossièrement en
 4 étapes :
+\vspace{0.5cm}
 \begin{itemize}
   \item{Trouver un visage dans l'image}
   \item{Analyser les caractéristiques faciales}
@@ -213,42 +165,26 @@ visages mémorisés (machine learning). La détection se fait grossièrement en
 \end{itemize}
 \vspace{0.5cm}
 La technique de reconnaissance faciale est appelé Histogram of Oriented Gradients
-(HOG). Tout d'abord les couleurs sont changés pour avoir une image en noir et blanc.
+(HOG). Tout d'abord les couleurs sont changées pour avoir une image en niveau de gris.
 Ensuite l'idée est de regarder chaque pixel de l'image et de faire une flèche vers
 le pixel adjacent le plus sombre. Chaque pixel est ainsi remplacé par une flèche
-appelé gradient. Ce procédé permet d'avoir une représentation qui est indépendante
-de la clareté ou de la sombreté de l'image. Mais une flèche par pixel rend
+appelée gradient. Ce procédé permet d'avoir une représentation qui est indépendante
+de la clareté ou de la noirceur de l'image. Mais une flèche par pixel rend
 l'analyse trop pointue, ainsi l'image du début est séparée en carré de 16x16.
 Dans chaque carré on trouve une flèche qui représente en moyenne la direction
-la plus représenté des flèches de chaque pixel en son sein. Ainsi on a une
+la plus représentée des flèches de chaque pixel en son sein. Ainsi on a une
 représentation globale et simple du visage (voir figure~\ref{fig:HOG} et~\ref{fig:HOG1})
 \\
 Pour reconnaître des personnes spécifiques, le logiciel ne va pas chercher à
-comparer la représentation trouvé par HOG avec toutes les autres représentation
-trouvé auparavant. Il va réaliser des mesures précises sur les visages trouvés
+comparer la représentation trouvée par HOG avec toutes les autres représentation
+trouvées auparavant. Il va réaliser des mesures précises sur les visages trouvés
 et ainsi émettre une décision par rapport aux mesures enregistrées dans le passé
-sur d'autre image.
+sur d'autres images.
 \\
-\newpage
-\begin{figure}[h]
-  \begin{center}
-  \includegraphics[width=0.4\linewidth]{HOG1}
-  \caption{Exemple représentation HOG (1)}
-  \label{fig:HOG}
-\end{center}
-\end{figure}
-
-\begin{figure}[h]
-  \begin{center}
-  \includegraphics[width=0.7\linewidth]{HOG}
-  \caption{Exemple représentation HOG (2)}
-  \label{fig:HOG1}
-\end{center}
-\end{figure}
 \newpage
 \section{Exemple code}
 Ci dessous le programme qui permet de passer en paramètre une image modèle et
-une image à reconnaître. Le programme renvoit \verb|true| si la personne sur les deux
+une image à reconnaître. Le programme renvoie \verb|true| si la personne sur les deux
 images est identique et \verb|false| sinon.
 \\
 \begin{minted}{python}
@@ -273,60 +209,11 @@ def is_recognized(imageSet, imagePath
 
 Le programme va tout simplement prendre l'image modèle et "l'encoder" (HOG) et
 la placer dans la liste des visages connus. L'autre image est également
-encodé. L'avant dernière ligne permet de comparer les deux images encodées.
+encodée. L'avant dernière ligne permet de comparer les deux images encodées.
 \\
 \\
-Sur le programme suivant même principe sauf que la reconnaissance se fait en direct
+Sur le programme en annexe B même principe sauf que la reconnaissance se fait en direct
 avec une Webcam. Le programme permet de dessiner un cadre rouge autour du/des
 visages et de faire apparaître leur(s) nom(s) si il reconnait un visage.
 L'encodage se fait ligne 9 et 10.
 \newpage
-
-\begin{minted}{python}
-import facerecognition
-import cv2
-videocapture = cv2.VideoCapture(0)
-jujuimage = facerecognition.loadimagefile("juju.jpg")
-plimage = facerecognition.loadimagefile("pl.jpg")
-
-jujufaceencoding = facerecognition.faceencodings(jujuimage)[0]
-plfaceencoding = facerecognition.faceencodings(plimage)[0]
-
-while True:
-     ret, frame = videocapture.read()
-
-     facelocations = facerecognition.facelocations(frame)
-     faceencodings = facerecognition.faceencodings(frame, facelocations)
-
-     for (top, right, bottom, left), faceencoding in zip(facelocations,
-       faceencodings):
-          #See if the face is a match for the known face(s)
-          match = facerecognition.comparefaces([jujufaceencoding],
-            faceencoding)
-          match1 = facerecognition.comparefaces([plfaceencoding],
-            faceencoding)
-          name = "Unknown"
-          if match[0]:
-               name = "Juliette"
-          if match1[0]:
-              name = "PL"
-          #Draw a box around the face
-          cv2.rectangle(frame, (left, top), (right, bottom), (0, 0, 255), 2)
-
-          #Draw a label with a name below the face
-          cv2.rectangle(frame, (left, bottom - 35), (right, bottom), (0, 0,
-            255), cv2.FILLED)
-          font = cv2.FONTHERSHEYDUPLEX
-          cv2.putText(frame, name, (left + 6, bottom - 6), font, 1.0, (255,
-            255, 255), 1)
-
-     #Display the resulting image
-     cv2.imshow('Video', frame)
-
-     #Hit 'q' on the keyboard to quit!
-     if cv2.waitKey(1) & 0xFF == ord('q'):
-          break
-#Release handle to the webcam
-videocapture.release()
-cv2.destroyAllWindows()
-\end{minted}
