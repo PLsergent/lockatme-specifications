@@ -67,28 +67,28 @@
 \chapter{Code}
 \newpage
 \begin{minted}{python}
-import facerecognition
+import face_recognition
 import cv2
 videocapture = cv2.VideoCapture(0)
-jujuimage = facerecognition.loadimagefile("juju.jpg")
-plimage = facerecognition.loadimagefile("pl.jpg")
+jujuimage = face_recognition.loadimagefile("juju.jpg")
+plimage = face_recognition.loadimagefile("pl.jpg")
 
-jujufaceencoding = facerecognition.faceencodings(jujuimage)[0]
-plfaceencoding = facerecognition.faceencodings(plimage)[0]
+jujuface_encoding = face_recognition.face_encodings(jujuimage)[0]
+plface_encoding = face_recognition.face_encodings(plimage)[0]
 
 while True:
      ret, frame = videocapture.read()
 
-     facelocations = facerecognition.facelocations(frame)
-     faceencodings = facerecognition.faceencodings(frame, facelocations)
+     face_locations = face_recognition.face_locations(frame)
+     face_encodings = face_recognition.face_encodings(frame, face_locations)
 
-     for (top, right, bottom, left), faceencoding in zip(facelocations,
-       faceencodings):
+     for (top, right, bottom, left), face_encoding in zip(face_locations,
+       face_encodings):
           #See if the face is a match for the known face(s)
-          match = facerecognition.comparefaces([jujufaceencoding],
-            faceencoding)
-          match1 = facerecognition.comparefaces([plfaceencoding],
-            faceencoding)
+          match = face_recognition.compareface_s([jujuface_encoding],
+            face_encoding)
+          match1 = face_recognition.compareface_s([plface_encoding],
+            face_encoding)
           name = "Unknown"
           if match[0]:
                name = "Juliette"
