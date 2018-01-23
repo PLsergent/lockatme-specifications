@@ -73,8 +73,8 @@ video_capture = cv2.VideoCapture(0)
 juju_image = face_recognition.load_image_file("juju.jpg")
 pl_image = face_recognition.load_image_file("pl.jpg")
 
-juju_face_encoding = face_recognition.face_encodings(jujuimage)[0]
-pl_face_encoding = face_recognition.face_encodings(plimage)[0]
+juju_face_encoding = face_recognition.face_encodings(juju_image)[0]
+pl_face_encoding = face_recognition.face_encodings(pl_image)[0]
 
 while True:
      ret, frame = video_capture.read()
@@ -85,9 +85,9 @@ while True:
      for (top, right, bottom, left), face_encoding in zip(face_locations,
        face_encodings):
           #See if the face is a match for the known face(s)
-          match = face_recognition.compare_faces([jujuface_encoding],
+          match = face_recognition.compare_faces([juju_face_encoding],
             face_encoding)
-          match1 = face_recognition.compare_faces([plface_encoding],
+          match1 = face_recognition.compare_faces([pl_face_encoding],
             face_encoding)
           name = "Unknown"
           if match[0]:
