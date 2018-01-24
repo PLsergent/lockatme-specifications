@@ -9,7 +9,7 @@ l'explication des bibliothèques utilisées. Et à un plus haut niveau avec des 
 de fonctionnement, des exemples d'utilisations et des captures d'écran. À noter
 que c'est dans cette section que nous traiterons des limites du logiciel. C'est
 à dire tout ce que le logiciel ne sera pas en mesure de faire automatiquement.
-Certaines recommandations vont donc être ennoncées, qu'il sera préférable de
+Certaines recommandations vont donc être énoncées, qu'il sera préférable de
 respecter pour le bon fonctionnement de lockatme.
 \section{Utilisation}
   \subsection{Installation Qualification}
@@ -27,7 +27,7 @@ Sinon il pourra tout simplement cloner le projet depuis GitHub puis le compiler 
   $ make install
 \end{lstlisting}
 Suite à l'installation de lockatme l'utilisateur pourra lancer le logiciel
-avec la commande suivante dans son shell \verb|lockatme|.
+avec la commande suivante depuis son shell \verb|lockatme|.
 
 \subsection{Explication générale}
 Une fois l'installation réalisée, comme expliqué dans la partie précédente,
@@ -64,7 +64,7 @@ fonctionnera. Bien évidemment une image de bonne qualité est préférable, le 
 vérifiera pas la qualité de l'image. L'utilisateur devra donc voir à l'usage.
 
 \subsubsection{Raccourci clavier}
-Cet exemple est réalisé à partir d'une distribution ArchLinux avec le Windows
+Cet exemple est réalisé à partir d'une distribution ArchLinux avec le windows
 manager i3. La marche à suivre est donc susceptible de changer.
 \begin{lstlisting}[language=bash]
   $ cd .config/i3/
@@ -122,7 +122,7 @@ chaque parcelle de l'image ne contient pas un visage. Sans plus entrer dans
 les détails, nous avons donc pu écrire quelques lignes de code qui nous
 permettaient d'identifier les visages au sein d'une image (voir
 figure~\ref{fig:face}), mais aussi en direct grâce à une webcam. Problème :
-cette option ne nous permettait pas de simplement d'identifier une personne
+cette option ne nous permettait pas de simplement identifier une personne
 spécifique dans une image. Chose essentielle pour notre logiciel.
 \\
 
@@ -191,7 +191,7 @@ images est identique et \verb|false| sinon.
 import face_recognition as fr
 
 
-def is_recognized(imageSet, imagePath
+def is_recognized(imageSet, imagePath)
     model_image = fr.load_image_file(imageSet)
     unknown_image = fr.load_image_file(imagePath)
 
@@ -215,5 +215,5 @@ encodée. L'avant dernière ligne permet de comparer les deux images encodées.
 Sur le programme en annexe B même principe sauf que la reconnaissance se fait en direct
 avec une Webcam. Le programme permet de dessiner un cadre rouge autour du/des
 visages et de faire apparaître leur(s) nom(s) si il reconnait un visage.
-L'encodage se fait ligne 9 et 10.
+L'encodage se fait ligne 6 et 7.
 \newpage
